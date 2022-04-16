@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarLX</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/style.css">
+
+    <link rel="stylesheet" href="/popup.css" />
+    <script src='/popup.js'></script>
+    <script src="/lang.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="bottom-nav">
+
+        <h2 style="float: left;">Car<span class="logo">LX</span></h2>
+
+        <p style="position: absolute; left: 150px; top: 28px; font-size: x-small;">English | <a onclick="ar()" class="langtoggle">عربي</a></p>
+
+        <ul class="nav justify-content-end">
+          <% if (!user._id) { %>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="logopenForm()">Sign in</a>
+            </li>
+            <p style="position: relative; top: 8px;"><b> | Don't have an account? </b></p>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="regopenForm()">Sign up</a>
+            </li>
+          <%} else {%>
+
+            <p style="position: relative; top: 8px;"> 
+              <span style="right: 20px; position:relative;"><%= "Hello, "%> <b> <%= user.name.split(' ')[0] + "!" %> </b></span>
+         
+              <a style="padding: 0px 10px;" href="/profile" ><i title="Profile" class="fa fa-2x fa-user" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/cars" ><i  title="View cars" class="fa fa-car fa-2x" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/addsale" ><i  title="Add car for sale" class="fa fa-2x fa-plus-circle" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/logout" ><i title="sign out" class="fa fa-2x fa-sign-out" style="color: black;"></i></a>
+
+              </p>
+
+          <%}%>
+        </ul>
+    </nav>
+    <div class="container" style=" border-color: black; border-style: solid;">
+        <div class="carousel slide" data-interval="3000" data-ride="carousel">
+            <div class="carousel-inner carousel23">
+                <div class="carousel-caption">
+                    <h1 class="display-3" style="overflow: hidden;">Buy and sell your car</h1>
+                    <h1 class="display-3" style="overflow: hidden;">in a glimpse of an eye</h1>
+                </div>
+                <div class="carousel-item active">
+                    <img class="w-100" src="/carousel11.jpg" alt="First slide">
+
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="carousel22.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="/carousel33.jpg" alt="Third slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="/carousel44.jpg" alt="Fourth slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="/carousel55.jpg" alt="Fifth slide">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%; text-align: center; padding-top: 5px;">
+
+
+
+        <input class="input11" type="text" id="search_bar" placeholder="Search" name="search"
+            style="position: relative; top: 2px; width: 50%; height: 40px;" />
+        <button onclick="search()" class="btn" style="background-color: black; color: white;"><i
+                class="fa fa-search"></i></button>
+
+
+    </div>
+
+    <hr>
+
+    <h4 style="position: relative; text-align: center; top: 30px;">Most Recently Visited</h4>
+
+    <div class="astrodivider">
+        <div class="astrodividermask"></div><span><i>&#10038;</i></span>
+    </div>
+
+    <div class="bottom">
+              <div>
+                <% if (cars.length > 0) { var i = -1; %>
+                    <% cars.forEach(car => { i++; %>
+                        <% if (i%3 == 0){ %>
+                            <div class="card-deck">
+                        <% } %>
+                                <div class="card" style="max-width: 450px;">
+                                    
+                                    <img class="card-img-top zoomer" src="data:car/<%=car.img1.contentType%>;base64,
+                                    <%=car.img1.data.toString('base64')%>" alt="Card image cap" height="400px">
+                                    <div class="card-body">
+
+                                    <h5 class="card-title cardtitless"><%= car.brand + " " + car.name%></h5>
+                                    </div>
+                                    
+                                </div>
+                        <% if (i%3==2){ %>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+    </div>
+
+    <!-- div bta3et el sign in -->
+    <div class="form-popup" id="signin">
+      <form class="form-container">
+        <button type="button" class="custombut" onclick="logcloseForm()">&#x2716</button>
+        <h1 class="tpp">CarLX</h1>
+    
+        
+        <input id="emailin" type="text" placeholder="Enter Email" name="email" required>
+        <span class="verifin" id="emailverifin"></span><br>
+      
+        <input id="passin" type="password" placeholder="Enter Password" name="psw" required>
+        <span class="verifin" id="passverifin"></span><br>
+        <button onclick="login()" class="btn">Sign In</button>
+      </form>
+    </div>
+    
+    
+    <!-- div bta3et el signup -->
+    <div class="form-popup" id="signup">
+        <form class="form-container">
+          <button type="button" class="custombut" onclick="regcloseForm()">X</button>
+          <h1 class="tpp">CarLX</h1>
+      
+          <input  type="email" id="emailout" placeholder="Enter Email" name="email" required>
+          <span class="verifout" id="emailverifout"></span><br>
+          <input  type="password" id="passout" placeholder="Enter Password" name="psw" required> 
+          <span class="verifout" id="passverifout"></span><br>
+          <input  type="text" placeholder="Enter First Name" id='first' name="fn" required>
+          
+          <input  type="text" placeholder="Enter Last Name" id='second' name="ln" required>
+          <input  type="text" placeholder="Enter your phone number" id='phone' name="pn" required>
+
+          <select id="city"  name="city" required>
+            <option value="Alexandria">Alexandria</option>
+            <option value="Aswan">Aswan</option>
+            <option value="Asyut">Asyut</option>
+            <option value="Beheira">Beheira</option>
+            <option value="Beni Suef">Beni Suef</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Dakahlia">Dakahlia</option>
+            <option value="Damietta">Damietta</option>
+            <option value="Faiyum">Faiyum</option>
+            <option value="Gharbia">Gharbia</option>
+            <option value="Giza">Giza</option>
+            <option value="Ismailia">Ismailia</option>
+            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+            <option value="Luxor">Luxor</option>
+            <option value="Matruh">Matruh</option>
+            <option value="Minya">Minya</option>
+            <option value="Monufia">Monufia</option>
+            <option value="New Valley">New Valley</option>
+            <option value="North Sinai">North Sinai</option>
+            <option value="Port Said">Port Said</option>
+            <option value="Qalyubia">Qalyubia</option>
+            <option value="Qena">Qena</option>
+            <option value="Red Sea">Red Sea</option>
+            <option value="Sharqia">Sharqia</option>
+            <option value="Sohag">Sohag</option>
+            <option value="South Sinai">South Sinai</option>
+            <option value="Suez">Suez</option>
+          </select>
+          
+          <button onclick="reg()" class="btn">Sign Up</button>
+        </form>
+      </div>
+     
+      
+    <!-- div bta3et el verify --> 
+      <div class="form-popup" id="ver">
+        <form class="form-container">
+          <button type="button" class="custombut" onclick="vercloseForm()">X</button>
+          <h1 class="tpp">CarLX</h1>
+      
+          <input  type="text" placeholder="Enter the verification code sent to your email" name="code" id="verin" required>
+          <span class="verifout" id="verifcode"></span><br>
+          
+          
+          <button onclick="ver()" class="btn">Verify</button>
+        </form>
+      </div>
+
+      <button title="Go back to top" onclick="gotoTop()" id="myBtn" title="Go to top"><i class="fa fa-angle-up fa-2x"></i></button> 
+
+      <script src="/car_details.js"></script>
+      
+    <script>
+      function search(){
+          event.preventDefault();
+          window.location = "http://localhost:3000/cars/".concat(document.getElementById("search_bar").value);
+          return false;
+      }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+.bottom-nav{
+    padding-top: 10px;
+}
+.nav{
+    padding-right: 50px ;
+}
+h2{
+    padding-left: 10px;
+    font-weight: bolder;
+}
+
+.logo{
+    font-weight: normal;
+}
+
+a:hover{
+    cursor: pointer;
+  }
+
+div button.filterr{
+    color: black;
+    border: solid 2px black;
+  }
+  
+  .filterr:hover{
+    color: limegreen;
+    border-color: limegreen;
+  }
+
+.input11:focus {
+    outline: black !important;
+    border:1px solid black;
+    box-shadow: 0 0 10px black;
+}
+
+.input11::placeholder{
+    color: gray;
+    font-size: medium;
+    font-weight: bold;
+    opacity: 1;
+}
+
+.input11{
+    position: relative;
+    top: 2px;
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    font-weight: bolder;
+}
+
+.searchbtn:hover{
+    background-color: rgb(100, 100, 100);
+
+}
+
+.searchbtn{
+    background-color: black;
+    color: white;
+    
+}
+
+.sidenav{
+    position: relative;
+    top: 20px;
+    float: left;
+    width: 20%;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-right: solid;
+    border-right-color: darkgray;
+    border-right-width: 2px;
+}
+
+button:focus{
+    outline:none !important;
+    }
+
+.brandsimg{
+    width: 28px;
+}
+
+.sidesdiv{
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(231, 231, 231);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.zoomer{
+    transition: transform .2s;
+    
+}
+
+.zoomer:hover {
+    -ms-transform: scale(1.25); /* IE 9 */
+    -webkit-transform: scale(1.25); /* Safari 3-8 */
+    transform: scale(1.25);
+    z-index: 99;
+  }
+
+
+.cardtitless{
+    font-weight: bolder;
+}
+
+.rightarroww{
+    float: right;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.inputarab[type="text"]::placeholder { 
+                  
+          
+    text-align: right;
+}
+
+.sidenavarab{
+    position: relative;
+    top: 20px;
+    float: right;
+    width: 20%;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-left: solid;
+    border-left-color: darkgray;
+    border-left-width: 2px;
+}
+
+#myBtn {
+    display: none; 
+    position: fixed; 
+    bottom: 20px; 
+    right: 30px; 
+    z-index: 99; 
+    border: none;
+    outline: none; 
+    background-color: white; 
+    color: black; 
+    cursor: pointer; 
+    padding: 15px; 
+    border-radius: 60%; 
+    font-size: 18px; 
+    border: solid 2px black;
+  }
+
+#myBtn:hover {
+    background-color: black;
+    color: white;
+}
+#myBtn:focus {
+    background-color: white;
+    color: black;
+}

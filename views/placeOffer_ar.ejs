@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Offer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/placeOffer.css">
+    <script src="/lang.js"></script>
+    <script>
+        function onSub() {
+            if (document.getElementById('myFile').files.length != 3) {
+                alert("برجاء رفع ثلاث صور");
+                event.preventDefault();
+            }
+        }
+
+        function onC() {
+            event.preventDefault();
+            var elem = document.getElementById('myFile');
+            var evt = document.createEvent("MouseEvents");
+            evt.initEvent("click", true, false);
+            elem.dispatchEvent(evt);
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="bottom-nav">
+
+        <h2 style="float: left;">Car<span class="logo">LX</span></h2>
+        
+        <p style="position: absolute; left: 150px; top: 28px; font-size: x-small;"><a onclick="en()" class="langtoggle">English</a> | عربي</p>
+
+        <ul class="nav justify-content-end">
+          <% if (!user._id) { %>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="regopenForm()">انشأ حسابك الخاص</a>
+            </li>
+            <p style="position: relative; top: 8px;"><b>ليس لديك حساب؟ | </b></p>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="logopenForm()">ادخل حسابك</a>
+            </li>
+          <%} else {%>
+
+            <p style="position: relative; top: 8px;"> 
+              <span style="right: 20px; position:relative;"><b> <%= user.name.split(' ')[0]%> </b><%=" ،اهلا"%></span>
+         
+              <a style="padding: 0px 10px;" href="/profile" ><i title="Profile" class="fa fa-2x fa-user" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/cars" ><i  title="View cars" class="fa fa-car fa-2x" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/addsale" ><i  title="Add car for sale" class="fa fa-2x fa-plus-circle" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/logout" ><i title="sign out" class="fa fa-2x fa-sign-out" style="color: black;"></i></a>
+
+              </p>
+
+          <%}%>
+        </ul>
+    </nav>
+    <hr>
+
+
+
+    <div class="placeOfferDiv" style="text-align: right; padding: 0px 10px 10 px 10px;">
+        <h3 class="newFont" >اعرض السيارة <i class="fa fa-plus-circle"></i></h3>
+        <hr style="width: 100%;">
+
+        <div class="inputForm" style="float: right; text-align: right;">
+            <form action="/addsale" method="POST" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <select required name="brand" class="form-control form-control-sm" style="width: 50%; float: right; text-align: right;">
+                            <option value="">اختر الماركة</option>
+                            <option value="Audi">أودي</option>
+                            <option value="BMW">بي ام دبليو</option>
+                            <option value="Chevrolet">شيفروليت</option>
+                            <option value="Dodge">دودج</option>
+                            <option value="Ford">فورد</option>
+                            <option value="Honda">هيونداي</option>
+                            <option value="Honda">هوندا</option>
+                            <option value="Jeep">جيب</option>
+                            <option value="Kia">كيا</option>
+                            <option value="Mazda">مازدا</option>
+                            <option value="Mercedes-Benz">مرسيدس</option>
+                            <option value="Nissan">نيسان</option>
+                            <option value="Opel">أوبل</option>
+                            <option value="Peugeot">بيجوت</option>
+                            <option value="Renault">رينو</option>
+                            <option value="Skoda">سكودا</option>
+                            <option value="Volkswagen">فولكس فاجن</option>
+                        </select>
+                    </div>
+                    <label for="inputCarBrand" class="col-sm-2 col-form-label newFontLabels">:الماركة</label>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input required name="name" type="text" class="plcholders" placeholder="استرا - النترا">
+                    </div>
+                    <label for="inputModel" class="col-sm-2 col-form-label newFontLabels">:الموديل</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input required name="model" type="text" class="plcholders" placeholder="2010, 2015">
+                    </div>
+                    <label for="inputYear" class="col-sm-2 col-form-label newFontLabels">:السنة</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input required name="distance" type="text" class="plcholders" placeholder="كم">
+                    </div>
+                    <label for="inputPrice" class="col-sm-2 col-form-label newFontLabels">:الكيلومتراج</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input required name="price" type="text" class="plcholders" placeholder="جنيه مصرى">
+                    </div>
+                    <label for="inputPrice" class="col-sm-2 col-form-label newFontLabels">:السعر المطلوب</label>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <select required name="city" id="city" class="form-control form-control-sm" style="width: 50%; float: right; text-align: right;">
+                            <option value="Alexandria">الاسكندرية</option>
+                            <option value="Ismailia">الإسماعيلية</option>
+                            <option value="Aswan">أسوان</option>
+                            <option value="Asyut">أسيوط</option>
+                            <option value="Luxor">الأقصر</option>
+                            <option value="Red Sea">البحر الأحمر</option>
+                            <option value="Beheira">البحيرة</option>
+                            <option value="Beni Suef">بني سويف</option>
+                            <option value="Port Said">بورسعيد</option>
+                            <option value="South Sinai">جنوب سيناء</option>
+                            <option value="Giza">الجيزة</option>
+                            <option value="Cairo">القاهرة</option>
+                            <option value="Dakahlia">الدقهلية</option>
+                            <option value="Damietta">دمياط</option>
+                            <option value="Sohag">سوهاج</option>
+                            <option value="Suez">السويس</option>
+                            <option value="Sharqia">الشرقية</option>
+                            <option value="North Sinai">شمال سيناء</option>
+                            <option value="Faiyum">الفيوم</option>
+                            <option value="Gharbia">الغربية</option>
+                            <option value="Kafr El Sheikh">كفر الشيخ</option>
+                            <option value="Matruh">مطروح</option>
+                            <option value="Minya">المنيا</option>
+                            <option value="Monufia">المنوفية</option>
+                            <option value="New Valley">الوادي الجديد</option>
+                            <option value="Qalyubia">القليوبية</option>
+                            <option value="Qena">قنا</option>
+                          </select>
+                    </div>
+                    <label for="inputLoc" class="col-sm-2 col-form-label newFontLabels">:المكان</label>
+                </div>
+
+                <br>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button onclick="onC()">اختر الصور</button>
+                        <input multiple style="display: none;" required type="file" accept="image/*" id="myFile" name="images" style="background-color: white;border-color: black;">
+                            
+                    </div>
+                    <label for="inputPics" class="col-sm-2 col-form-label newFontLabels">:صور السيارة</label>
+                </div>
+
+                <div class="alert alert-info" >
+                    <p>
+                        <b>ملحوظة:</b> <i class="fa fa-exclamation-circle"></i> حاول أن تختار صور تعكس حالة السيارة قدر المستطاع 
+                    </p>
+                </div>
+
+
+                <div style="float: left; text-align: left;"><button class="btn btnplaceoffer" type="submit" onclick="onSub()">عرض
+                        <i class="fa fa-check"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <button title="الرجوع الى اول الصفحة" onclick="gotoTop()" id="myBtn" title="Go to top"><i class="fa fa-angle-up fa-2x"></i></button> 
+
+    <script src="car_details.js"></script>
+
+</body>
+
+</html>

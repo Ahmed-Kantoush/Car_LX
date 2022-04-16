@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars Page</title>
+    <link rel="stylesheet" href="/cars_page.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/lang.js"></script>
+    <script src="/car_details.js"></script>
+    <script>
+        function toggleArr(i){
+            if(i == 0){
+                if(document.getElementById("down").className == "fa fa-angle-up fa-lg"){
+                    document.getElementById("down").className = "fa fa-angle-down fa-lg";
+                }
+                else if(document.getElementById("down").className == "fa fa-angle-down fa-lg")
+                document.getElementById("down").className = "fa fa-angle-up fa-lg";
+            }
+
+            else if(i == 1){
+                if(document.getElementById("down2").className == "fa fa-angle-up fa-lg"){
+                    document.getElementById("down2").className = "fa fa-angle-down fa-lg";
+                }
+                else if(document.getElementById("down2").className == "fa fa-angle-down fa-lg")
+                document.getElementById("down2").className = "fa fa-angle-up fa-lg";
+            }
+
+            else if(i == 2){
+                if(document.getElementById("down3").className == "fa fa-angle-up fa-lg"){
+                    document.getElementById("down3").className = "fa fa-angle-down fa-lg";
+                }
+                else if(document.getElementById("down3").className == "fa fa-angle-down fa-lg")
+                document.getElementById("down3").className = "fa fa-angle-up fa-lg";
+            }
+
+            else if(i == 3){
+                if(document.getElementById("down4").className == "fa fa-angle-up fa-lg"){
+                    document.getElementById("down4").className = "fa fa-angle-down fa-lg";
+                }
+                else if(document.getElementById("down4").className == "fa fa-angle-down fa-lg")
+                document.getElementById("down4").className = "fa fa-angle-up fa-lg";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="bottom-nav">
+
+        <h2 style="float: left;">Car<span class="logo">LX</span></h2>
+
+        <p style="position: absolute; left: 150px; top: 28px; font-size: x-small;"><a onclick="en()" class="langtoggle">English</a> | عربي</p>
+
+        <ul class="nav justify-content-end">
+          <% if (!user._id) { %>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="regopenForm()">انشأ حسابك الخاص</a>
+            </li>
+            <p style="position: relative; top: 8px;"><b>ليس لديك حساب؟ | </b></p>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="logopenForm()">ادخل حسابك</a>
+            </li>
+          <%} else {%>
+
+            <p style="position: relative; top: 8px;"> 
+              <span style="right: 20px; position:relative;"><b> <%= user.name.split(' ')[0]%> </b><%=" ،اهلا"%></span>
+         
+              <a style="padding: 0px 10px;" href="/profile" ><i title="Profile" class="fa fa-2x fa-user" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/cars" ><i  title="View cars" class="fa fa-car fa-2x" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/addsale" ><i  title="Add car for sale" class="fa fa-2x fa-plus-circle" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/logout" ><i title="sign out" class="fa fa-2x fa-sign-out" style="color: black;"></i></a>
+
+              </p>
+
+          <%}%>
+        </ul>
+    </nav>
+    <hr>
+
+    <div id="quickTip" class="alert alert-light" style="text-align: center; padding: 0px; border: 0px;">
+        <p>
+            <b>!ملحوظة هامة</b> : اذا وجدت السيارة التي تبحث عنها فلا تنسى ان تضيفها الى خانة السيارات المفضلة حتى
+            تستطيع ان تجدها عندما تعود، استمتع بالتسوق
+            <i class="fa fa-exclamation-circle"></i>
+            <a class="quicktipArab" role="button" onclick="hamada()">ازالة</a>
+        </p>
+    </div>
+    <hr>
+
+    <div style="width: 100%; text-align: center; padding-top: 3px;">
+        <button onclick="search()" class="searchbtn btn" style="background-color: black;
+        color: white;" onMouseOver="this.style.backgroundColor= 'darkgray'"
+            onMouseOut="this.style.backgroundColor= 'black'">
+            <i class="fa fa-search"></i></button>
+        <input class="input11" type="text" placeholder="بحث" id="search_bar" name="search" />
+    </div>
+
+    <div class="sidenavarab">
+        <form action="/filter" method="POST">
+        <h4 style="text-align: center;">تصفية البحث</h4>
+        <hr style="color: darkgray;">
+        <div class="sidesdiv" id="brandsdiv1">
+            <button type="button" style="background-color: white; border: none; width: 100%;" data-toggle="collapse"
+                data-target="#brands"  onclick="toggleArr(0)">
+                <i id="down" class="fa fa-angle-up fa-lg" style="float: left; position: relative; top: 2px;"></i>
+                <p style="float: right;">الماركة</p>
+            </button>
+
+            <!-- momken no7ot "show" 3ashan teftah by default -->
+
+            <div id="brands" class="collapse show" style="text-align: right;">
+                <label for="Audi">أودي</label><img class="brandsimg" src="/audi.png" style="float: left;">
+                <input name="Audi" id="Audi" type="checkbox"><br>
+                <label for="BMW">بي أم دبليو</label><img class="brandsimg" src="/bmw.png" style="float: left;">
+                <input id="BMW" name="BMW" type="checkbox"><br>
+                <label for="Chevrolet">شيفروليت</label><img class="brandsimg" src="/chevy.jpg"
+                    style="float: left; position: relative; top: 5px;">
+                <input id="Chevrolet" name="Chevrolet" type="checkbox"><br>
+                <label for="Dodge">دودج</label><img class="brandsimg" src="/dodge.png" style="float: left;">
+                <input id="Dodge" name="Dodge" type="checkbox"><br>
+                <label for="Ford">فورد</label><img class="brandsimg" src="/ford.png" style="float: left;">
+                <input id="Ford" name="Ford" type="checkbox"><br>
+                <label for="Honda">هوندا</label><img class="brandsimg" src="/honda.png" style="float: left;">
+                <input id="Honda" name="Honda" type="checkbox"><br>
+                <label for="Hyundai">هيونداي</label><img class="brandsimg" src="/hyundai.png" style="float: left;">
+                <input id="Hyundai" name="Hyundai" type="checkbox"><br>
+                <label for="Jeep">جيب</label><img class="brandsimg" src="/jeep.png" style="float: left;">
+                <input id="Jeep" name="Jeep" type="checkbox"><br>
+                <label for="Kia">كيا</label><img class="brandsimg" src="/kia.png" style="float: left;">
+                <input id="Kia" name="Kia" type="checkbox"><br>
+                <label for="Mazda">مازدا</label><img class="brandsimg" src="/mazda.png" style="float: left;">
+                <input id="Mazda" name="Mazda" type="checkbox"><br>
+                <label for="Mercedes-Benz">مرسيدس</label><img class="brandsimg" src="/mercedes.png" style="float: left;">
+                <input id="Mercedes-Benz" name="Mercedes-Benz" type="checkbox"><br>
+                <label for="Nissan">نيسان</label><img class="brandsimg" src="/nissan.png" style="float: left;">
+                <input id="Nissan" name="Nissan" type="checkbox"><br>
+                <label for="Opel">اوبل</label><img class="brandsimg" src="/opel.png" style="float: left;">
+                <input id="Opel" name="Opel" type="checkbox"><br>
+                <label for="Peugeot">بيجوت</label><img class="brandsimg" src="/peugeot.png" style="float: left;">
+                <input id="Peugeot" name="Peugeot" type="checkbox"><br>
+                <label for="Renault">رينو</label><img class="brandsimg" src="/renault.png" style="float: left;">
+                <input id="Renault" name="Renault" type="checkbox"><br>
+                <label for="Skoda">سكودا</label><img class="brandsimg" src="/skoda.png" style="float: left;">
+                <input id="Skoda" name="Skoda" type="checkbox"><br>
+                <label for="Volkswagen">فولكس فاجن</label><img class="brandsimg" src="/volks.png" style="float: left;">
+                <input id="Volkswagen" name="Volkswagen" type="checkbox">
+            </div>
+        </div>
+
+        <div id="kmsdiv1">
+            <button type="button" style="background-color: white; border: none; width: 100%; position: relative; top: 15px; overflow: hidden;"
+                data-toggle="collapse" data-target="#kms" onclick="toggleArr(1)">
+                <p style="float: right;">الكيلومتراج</p>
+                <i id="down2" class="fa fa-angle-down fa-lg" style="float: left; position: relative; top: 2px;"></i>
+            </button>
+
+
+            <div id="kms" class="collapse">
+
+                <div class="form-row">
+                    <div class="col">
+                        <input type="number" name="dend" class="form-control" placeholder="الى" style="font-size: 12px;">
+                    </div>
+                    -
+
+                    <div class="col">
+                        <input type="number" name="dstart" class="form-control" placeholder="من" style="font-size: 12px;">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div id="pricediv">
+            <button type="button" style="background-color: white; border: none; width: 100%; position: relative; top: 15px;"
+                data-toggle="collapse" data-target="#price"  onclick="toggleArr(2)">
+                <p style="float: right;">السعر</p>
+                <i id="down3" class="fa fa-angle-down fa-lg" style="float: left; position: relative; top: 2px;"></i>
+            </button>
+
+
+            <div id="price" class="collapse">
+
+                <div class="form-row">
+                    <div class="col">
+                        <input type="number" name="pend" class="form-control" placeholder="الى" style="font-size: 12px;">
+                    </div>
+                    -
+
+                    <div class="col">
+                        <input type="number" name="pstart" class="form-control" placeholder="من" style="font-size: 12px;">
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <hr>
+
+
+        <div class="sidesdiv" id="locationdiv" style="text-align: right;">
+            <button type="button" style="background-color: white; border: none; width: 100%;" data-toggle="collapse"
+                data-target="#location"  onclick="toggleArr(3)">
+                <p style="float: right;">مكان البائع</p>
+                <i id="down4" class="fa fa-angle-down fa-lg" style="float: left; position: relative; top: 2px;"></i>
+            </button>
+
+            <div id="location" class="collapse">
+                <label for="Alexandria">الاسكندرية</label>
+                <input name="Alexandria" id="Alexandria" type="checkbox"><br>
+                <label for="Ismailia">الإسماعيلية</label>
+                <input name="Ismailia" id="Ismailia" type="checkbox"><br>
+                <label for="Aswan">أسوان</label>
+                <input name="Aswan" id="Aswan" type="checkbox"><br>
+                <label for="Asyut">أسيوط</label>
+                <input name="Asyut" id="Asyut" type="checkbox"><br>
+                <label for="Luxor">الأقصر</label>
+                <input name="Luxor" id="Luxor" type="checkbox"><br>
+                <label for="Red Sea">البحر الأحمر</label>
+                <input name="Red Sea" id="Red Sea" type="checkbox"><br>
+                <label for="Beheira">البحيرة</label>
+                <input name="Beheira" id="Beheira" type="checkbox"><br>
+                <label for="Beni Suef">بني سويف</label>
+                <input name="Beni Suef" id="Beni Suef" type="checkbox"><br>
+                <label for="Port Said">بورسعيد</label>
+                <input name="Port Said" id="Port Said" type="checkbox"><br>
+                <label for="South Sinai">جنوب سيناء</label>
+                <input name="South Sinai" id="South Sinai" type="checkbox"><br>
+                <label for="Giza">الجيزة</label>
+                <input name="Giza" id="Giza" type="checkbox"><br>
+                <label for="Cairo">القاهرة</label>
+                <input name="Cairo" id="Cairo" type="checkbox"><br>
+                <label for="Dakahlia">الدقهلية</label>
+                <input name="Dakahlia" id="Dakahlia" type="checkbox"><br>
+                <label for="Damietta">دمياط</label>
+                <input name="Damietta" id="Damietta" type="checkbox"><br>
+                <label for="Sohag">سوهاج</label>
+                <input name="Sohag" id="Sohag" type="checkbox">
+                <label for="Suez">السويس</label><br>
+                <input name="Suez" id="Suez" type="checkbox">
+                <label for="Sharqia">الشرقية</label>
+                <input name="Sharqia" id="Sharqia" type="checkbox"><br>
+                <label for="North Sinai">شمال سيناء</label>
+                <input name="North Sinai" id="North Sinai" type="checkbox"><br>
+                <label for="Faiyum">الفيوم</label>
+                <input name="Faiyum" id="Faiyum" type="checkbox"><br>
+                <label for="Gharbia">الغربية</label>
+                <input name="Gharbia" id="Gharbia" type="checkbox"><br>
+                <label for="Kafr El Sheikh">كفر الشيخ</label>
+                <input name="Kafr El Sheikh" id="Kafr El Sheikh" type="checkbox"><br>
+                <label for="Matruh">مطروح</label>
+                <input name="Matruh" id="Matruh" type="checkbox"><br>
+                <label for="Minya">المنيا</label>
+                <input name="Minya" id="Minya" type="checkbox"><br>
+                <label for="Monufia">المنوفية</label>
+                <input name="Monufia" id="Monufia" type="checkbox"><br>
+                <label for="New Valley">الوادي الجديد</label>
+                <input name="New Valley" id="New Valley" type="checkbox"><br>
+                <label for="Qalyubia">القليوبية</label>
+                <input name="Qalyubia" id="Qalyubia" type="checkbox"><br>
+                <label for="Qena">قنا</label>
+                <input name="Qena" id="Qena" type="checkbox"><br>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 10px;"><button class="btn filterr"><i class="fa fa-2x fa-filter filterr"></i></button></div>
+        </form>
+    </div>
+    <div style="width: 80%; float: right;">
+    <% if (cars.length > 0) { var i = -1; %>
+        <% cars.forEach(car => { i++; %>
+            <% if (i%3 == 0){ %>
+                <div class="card-deck" style="padding-top: 30px; padding-left: 20px;">
+            <% } %>
+                    <div class="card" style="max-width: 350px;">
+                        
+                        <img class="card-img-top zoomer" src="data:car/<%=car.img1.contentType%>;base64,
+                        <%=car.img1.data.toString('base64')%>" height="400px" alt="Card image cap">
+                        <div class="card-body">
+                            <a href=<%='/view/' + car._id%>><button class="btn rightarroww"><i class="fa fa-angle-right fa-3x"></i></button></a>
+                        <h5 class="card-title cardtitless"><%= car.brand + " " + car.name%></h5>
+                        <p class="card-text">
+                            Seller's Name: <%=car.seller_name%><br>
+                            Price: <%=car.price + " EGP"%><br>
+                            KMs Travelled: <%=car.distance + " KM"%><br>
+                            Seller's Town: <%=car.city%><br>
+                            Model: <%=car.model%>
+                        </p>
+                        </div>
+                        
+                    </div>
+            <% if (i%3==2){ %>
+                </div>
+            <% } %>
+        <% }) %>
+    <% } %>
+         
+    </div>
+    
+    <button title="الرجوع الى اول الصفحة" onclick="gotoTop()" id="myBtn" title="Go to top"><i class="fa fa-angle-up fa-2x"></i></button> 
+
+    <script src="car_details.js"></script>
+    
+    <script>
+        function search(){
+            event.preventDefault();
+            window.location = "http://localhost:3000/cars/".concat(document.getElementById("search_bar").value);
+            return false;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

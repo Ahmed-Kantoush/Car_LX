@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/myacc.css">
+    <script src="/lang.js"></script>
+</head>
+
+<body>
+
+    <nav class="bottom-nav">
+
+        <h2 style="float: left;">Car<span class="logo">LX</span></h2>
+
+        <p style="position: absolute; left: 150px; top: 28px; font-size: x-small;"><a onclick="en()" class="langtoggle">English</a> | عربي</p>
+
+        <ul class="nav justify-content-end">
+          <% if (!user._id) { %>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="regopenForm()">انشأ حسابك الخاص</a>
+            </li>
+            <p style="position: relative; top: 8px;"><b>ليس لديك حساب؟ | </b></p>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="logopenForm()">ادخل حسابك</a>
+            </li>
+          <%} else {%>
+
+            <p style="position: relative; top: 8px;"> 
+              <span style="right: 20px; position:relative;"><b> <%= user.name.split(' ')[0]%> </b><%=" ،اهلا"%></span>
+         
+              <a style="padding: 0px 10px;" href="/profile" ><i title="Profile" class="fa fa-2x fa-user" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/cars" ><i  title="View cars" class="fa fa-car fa-2x" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/addsale" ><i  title="Add car for sale" class="fa fa-2x fa-plus-circle" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/logout" ><i title="sign out" class="fa fa-2x fa-sign-out" style="color: black;"></i></a>
+
+              </p>
+
+          <%}%>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <div class="profileinfo">
+
+        <div class="profileimg">
+
+            <% if (user.img.contentType == "") { %>
+                <img src="/unknown.png" width="250px" onclick="onC()">
+                <form id="profile_f" action="/pic" method="POST" enctype="multipart/form-data">
+                    <input onchange="submitt()" style="display: none;" required type="file" accept="image/*" id="myFile" name="images" style="background-color: white;border-color: black;">
+                </form>
+            <%}%>
+
+            <% if (user.img.contentType != "") {%>
+                <img width="250px" onclick="onC()" src="data:car/<%=user.img.contentType%>;base64,
+                        <%=user.img.data.toString('base64')%>">
+                <form id="profile_f" action="/pic" method="POST" enctype="multipart/form-data">
+                    <input onchange="submitt()" style="display: none;" required type="file" accept="image/*" id="myFile" name="images" style="background-color: white;border-color: black;">
+                </form>
+            <%}%>
+
+        </div>
+
+        <h2 class="newfont" style="font-variant: small-caps; position: relative; top: 20px;"><%=user.name%></h1>
+            <br>
+
+            <div class="profiledetails" style="border-radius: 5px;
+            border-style:solid;
+            border-width: 2px;
+            border-color: lightgrey;
+            width: 50%;">
+
+                <div class="row justify-content-center rowstyle" style="padding-bottom: 8px;">
+
+                    <div class="col col-sm-4 profcol" style="position: relative; top: 15px;">
+                        <p><%= user._id%></p>
+                    </div>
+                    <div class="col col-sm-4 profcol" style="position: relative; top: 15px;">
+                        <p>:البريد الالكتروني</p>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row justify-content-center rowstyle" style="    border-top: solid 1px lightgray;
+                border-bottom: solid 1px lightgray;">
+
+                    <div class="col col-sm-4 profcol" style="position: relative; top: 5px;">
+                        <p><%= user.city%></p>
+                    </div>
+                    <div class="col col-sm-4 profcol" style="position: relative; top: 5px;">
+                        <p>:المحافظة</p>
+                    </div>
+
+                </div>
+
+
+                <div class="row  justify-content-center rowstyle" style="padding-top: 8px;">
+
+                    <div class="col col-sm-4 profcol">
+                        <p><%= user.phone %></p>
+                    </div>
+                    <div class="col col-sm-4 profcol">
+                        <p>:رقم الهاتف</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+    <hr style="background-color:lightgrey;">
+
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist" style="color: black;">
+        <li class="nav-item" role="presentation" style="color: black;">
+            <a class="nav-link active" id="ex3-tab-1" data-mdb-toggle="tab" href="#ex3-tabs-1" role="tab"
+                aria-controls="ex3-tabs-1" aria-selected="true"
+                style="font-weight: bolder; font-size: medium; color: black;">
+                <i class="fa fa-car fa-2x" style="color: black;"></i></a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex3-tab-2" data-mdb-toggle="tab" href="#ex3-tabs-2" role="tab"
+                aria-controls="ex3-tabs-2" aria-selected="false"><i style="color: black;"
+                    class="fa fa-envelope fa-2x"></i></a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex3-tab-3" data-mdb-toggle="tab" href="#ex3-tabs-3" role="tab"
+                aria-controls="ex3-tabs-3" aria-selected="false"><i style="color: black;"
+                    class="fa fa-heart fa-2x"></i></a>
+        </li>
+    </ul>
+    <!-- Tabs navs -->
+
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex2-content">
+        <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
+            <table class="table" style="text-align: right;">
+                <thead class="thead-dark" style="font-weight: bold;">
+                    <tr>
+                        <th scope="col"><b>مكان البائع</b></th>
+                        <th scope="col"><b>الكيلومتراج</b></th>
+                        <th scope="col"><b>السعر</b></th>
+                        <th scope="col"><b>الموديل</b></th>
+                        <th scope="col"><b>السيارة</b></th>
+                    </tr>
+                </thead>
+                <tbody style="font-weight: bold;">
+                    <% if (cars.length > 0) { %>
+                        <% cars.forEach(car => { %>
+                            <tr>
+                                <td><%=car.city%></td>
+                                <td><%=car.distance%></td>
+                                <td><%=car.price%></td>
+                                <td><%=car.model%></td>
+                                <td><a style="color: black;" href=<%= '/view/' + car._id%>><%=car.brand + ' ' + car.name%></a></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
+            <table class="table" style="text-align: right;">
+                <thead class="thead-dark" style="font-weight: bold;">
+                    <tr>
+                        <th scope="col"><b>رقم الهاتف</b></th>
+                        <th scope="col"><b>مكان المشتري</b></th>
+                        <th scope="col"><b>السيارة</b></th>
+                        <th scope="col"><b>الاسم</b></th>
+                    </tr>
+                </thead>
+                <tbody style="font-weight: bold;">
+                    <% if (users.length > 0) { %>
+                        <% users.forEach(user => { let i = 0;%>
+                            <tr>
+                                <td><%=user.phone%></td>
+                                <td><%=user.city%></td>
+                                <td><%=names[i]%></td>
+                                <td><%=user.name%></td>
+                            </tr>
+                        <% i++; }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
+            <table class="table" style="text-align: right;">
+                <thead class="thead-dark" style="font-weight: bold;">
+                    <tr>
+                        <th scope="col"><b>مكان البائع</b></th>
+                        <th scope="col"><b>الكيلومتراج</b></th>
+                        <th scope="col"><b>السعر</b></th>
+                        <th scope="col"><b>الموديل</b></th>
+                        <th scope="col"><b>السيارة</b></th>
+                    </tr>
+                </thead>
+                <tbody style="font-weight: bold;">
+                    <% if (carss.length > 0) { %>
+                        <% carss.forEach(car => { %>
+                            <tr>
+                                <td><%=car.city%></td>
+                                <td><%=car.distance%></td>
+                                <td><%=car.price%></td>
+                                <td><%=car.model%></td>
+                                <td><a style="color: black;" href=<%= '/view/' + car._id%>><%=car.brand + ' ' + car.name%></a></th>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button title="الرجوع الى اول الصفحة" onclick="gotoTop()" id="myBtn" title="Go to top"><i class="fa fa-angle-up fa-2x"></i></button> 
+
+    <script>
+        function submitt(){
+            document.getElementById('profile_f').submit();
+        }
+
+        function onC() {
+            event.preventDefault();
+            var elem = document.getElementById('myFile');
+            var evt = document.createEvent("MouseEvents");
+            evt.initEvent("click", true, false);
+            elem.dispatchEvent(evt);
+        }
+    </script>
+
+    <script src="car_details.js"></script>
+
+    <script src="/myacc.js"></script>
+    <script src="/mdb.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <form class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="ab">AB: </label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="ab" placeholder="Enter AB">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="ac">AC:</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="ac" placeholder="Enter AC">
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="bc">BC:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="bc" placeholder="Enter BC">
+            </div>
+          </div>  
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10 text-center"><br>
+            <button onclick="sub()" class="btn btn-primary">Calculate</button>
+          </div>
+        </div>
+        <div class="alert alert-success" id="ans" style="display: none;">
+            
+        </div>
+      </form>
+</body>
+
+<script>
+    function sub(){
+        event.preventDefault();
+        var x = document.getElementById("ab").value;
+        var y = document.getElementById("ac").value;
+        var z = document.getElementById("bc").value;
+        var ab = 0, ac = 0, bc = 0;
+        if (x != "")
+            var ab = parseFloat(x);
+        if (y != "")
+            var ac = parseFloat(y);
+        if (z != "")
+            var bc = parseFloat(z);
+        
+        var p2 = 0.5*(ab + ac + bc);
+        var area = Math.sqrt( p2 * ( p2 - ab ) * ( p2 - ac ) * ( p2 - bc ) ) ;
+        document.getElementById("ans").style.display = "block";
+        document.getElementById("ans").innerText = "Area = " + area;
+    }
+</script>
+
+</html>

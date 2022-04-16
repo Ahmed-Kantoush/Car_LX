@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Offer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/placeOffer.css">
+    <script src="/lang.js"></script>
+    <script>
+        function onSub() {
+            if (document.getElementById('myFile').files.length != 3) {
+                alert("Please upload 3 images");
+                event.preventDefault();
+            }
+        }   
+    </script>
+</head>
+
+<body>
+    <nav class="bottom-nav">
+
+        <h2 style="float: left;">Car<span class="logo">LX</span></h2>
+
+        
+        <p style="position: absolute; left: 150px; top: 28px; font-size: x-small;">English | <a onclick="ar()" class="langtoggle">عربي</a></p>
+
+        <ul class="nav justify-content-end">
+          <% if (!user._id) { %>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="logopenForm()">Sign in</a>
+            </li>
+            <p style="position: relative; top: 8px;"><b> | Don't have an account? </b></p>
+            <li class="nav-item">
+                <a class="nav-link atshy" onclick="regopenForm()">Sign up</a>
+            </li>
+          <%} else {%>
+
+            <p style="position: relative; top: 8px;"> 
+              <span style="right: 20px; position:relative;"><%= "Hello, "%> <b> <%= user.name.split(' ')[0] + "!" %> </b></span>
+         
+              <a style="padding: 0px 10px;" href="/profile" ><i title="Profile" class="fa fa-2x fa-user" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/cars" ><i  title="View cars" class="fa fa-car fa-2x" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/addsale" ><i  title="Add car for sale" class="fa fa-2x fa-plus-circle" style="color: black;"></i></a>
+              <a style="padding: 0px 10px;" href="/logout" ><i title="sign out" class="fa fa-2x fa-sign-out" style="color: black;"></i></a>
+
+              </p>
+
+          <%}%>
+        </ul>
+    </nav>
+    <hr>
+
+
+
+    <div class="placeOfferDiv" style=" padding: 0px 10px 10 px 10px;">
+        <h3 class="newFont"><i class="fa fa-plus-circle"></i> Place Offer</h3>
+        <hr style="width: 100%;">
+
+        <div class="inputForm">
+            <form action="/addsale" method="POST" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label for="inputCarBrand" class="col-sm-2 col-form-label newFontLabels">Car brand:</label>
+                    <div class="col-sm-10">
+                        <select required name="brand" class="form-control form-control-sm" style="width: 50%;">
+                            <option value=""> Select car brand</option>
+                            <option value="Audi">Audi</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Chevrolet">Chevrolet</option>
+                            <option value="Dodge">Dodge</option>
+                            <option value="Ford">Ford</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Honda">Hyundai</option>
+                            <option value="Jeep">Jeep</option>
+                            <option value="Kia">Kia</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="Mercedes-Benz">Mercedes-Benz</option>
+                            <option value="Nissan">Nissan</option>
+                            <option value="Opel">Opel</option>
+                            <option value="Peugeot">Peugeot</option>
+                            <option value="Renault">Renault</option>
+                            <option value="Skoda">Skoda</option>
+                            <option value="Volkswagen">Volkswagen</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputModel" class="col-sm-2 col-form-label newFontLabels">Model:</label>
+                    <div class="col-sm-10">
+                        <input required name="name" type="text" class="plcholders" placeholder="Ex. Astra, Elantra">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputYear" class="col-sm-2 col-form-label newFontLabels">Model Year:</label>
+                    <div class="col-sm-10">
+                        <input required name="model" type="text" class="plcholders" placeholder="Ex. 2010, 2015">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPrice" class="col-sm-2 col-form-label newFontLabels">Distance covered:</label>
+                    <div class="col-sm-10">
+                        <input required name="distance" type="text" class="plcholders" placeholder="In Km">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPrice" class="col-sm-2 col-form-label newFontLabels">Price wanted:</label>
+                    <div class="col-sm-10">
+                        <input required name="price" type="text" class="plcholders" placeholder="In EGP">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputLoc" class="col-sm-2 col-form-label newFontLabels">Location:</label>
+                    <div class="col-sm-10">
+                        <select id="city"  name="city" required style="width: 24%;">
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Aswan">Aswan</option>
+                            <option value="Asyut">Asyut</option>
+                            <option value="Beheira">Beheira</option>
+                            <option value="Beni Suef">Beni Suef</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Dakahlia">Dakahlia</option>
+                            <option value="Damietta">Damietta</option>
+                            <option value="Faiyum">Faiyum</option>
+                            <option value="Gharbia">Gharbia</option>
+                            <option value="Giza">Giza</option>
+                            <option value="Ismailia">Ismailia</option>
+                            <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                            <option value="Luxor">Luxor</option>
+                            <option value="Matruh">Matruh</option>
+                            <option value="Minya">Minya</option>
+                            <option value="Monufia">Monufia</option>
+                            <option value="New Valley">New Valley</option>
+                            <option value="North Sinai">North Sinai</option>
+                            <option value="Port Said">Port Said</option>
+                            <option value="Qalyubia">Qalyubia</option>
+                            <option value="Qena">Qena</option>
+                            <option value="Red Sea">Red Sea</option>
+                            <option value="Sharqia">Sharqia</option>
+                            <option value="Sohag">Sohag</option>
+                            <option value="South Sinai">South Sinai</option>
+                            <option value="Suez">Suez</option>
+                          </select>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="form-group row">
+                    <label for="inputPics" class="col-sm-2 col-form-label newFontLabels">Car photo:</label>
+                    <div class="col-sm-10">
+                        <input required multiple type="file" accept="image/*" id="myFile" name="images" style="background-color: white;border-color: black;">
+                            
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="text-align: left; float: left;">
+                    <p>
+                        <i class="fa fa-exclamation-circle"></i>
+                        <b>Quick Tip:</b> Your photos should reflect your car status as much as possible
+                    </p>
+                </div>
+
+
+                <div style="float: right;"><button class="btn btnplaceoffer" type="submit" onclick="onSub()">Place
+                        Offer
+                        <i class="fa fa-check"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <button title="Go back to top" onclick="gotoTop()" id="myBtn" title="Go to top"><i class="fa fa-angle-up fa-2x"></i></button> 
+
+    <script src="/car_details.js"></script>
+</body>
+
+</html>

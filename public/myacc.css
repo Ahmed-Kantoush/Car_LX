@@ -1,0 +1,105 @@
+
+
+.bottom-nav{
+    padding: 14px;
+    
+}
+
+
+
+.logo{
+    font-weight: normal;
+}
+
+.nav{
+    padding-right: 50px ;
+}
+
+h2{
+    padding-left: 10px;
+    font-weight: bolder;
+}
+
+a:hover{
+    cursor: pointer;
+  }
+
+a{
+    font-weight: bold;
+}
+
+a:hover{
+    color: black;
+}
+
+a:active{
+    color: blue;
+}
+
+.profileinfo{
+
+    text-align: center;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+}
+
+
+
+img{
+    padding: 2px;
+    border-radius: 50%;
+    box-shadow: 0px 5px 15px;
+}
+
+.newfont{
+    font-family: "poppins", sans-serif;
+    
+}
+
+.tabtitle{
+    font-size: medium;
+    font-weight: bold;
+    color: black;
+}
+
+.profiledetails{
+    text-align: center;
+    margin: auto;
+}
+
+.rowstyle{
+    text-align: center;
+    margin: auto;
+}
+
+.profcol{
+    width: 50%;
+}
+
+#myBtn {
+    display: none; 
+    position: fixed; 
+    bottom: 20px; 
+    right: 30px; 
+    z-index: 99; 
+    border: none;
+    outline: none; 
+    background-color: white; 
+    color: black; 
+    cursor: pointer; 
+    padding: 15px; 
+    border-radius: 60%; 
+    font-size: 18px; 
+    border: solid 2px black;
+  }
+
+#myBtn:hover {
+    background-color: black;
+    color: white;
+}
+#myBtn:focus {
+    background-color: white;
+    color: black;
+}
