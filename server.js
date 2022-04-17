@@ -8,12 +8,12 @@ const fs = require('fs');
 const session = require('express-session');
 var nodemailer = require('nodemailer');
 
-const dbURI = 'mongodb+srv://proj-user:user12340@cluster0.se9hx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const dbURI = 'mongourl';
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then((result) => {console.log('Connected'); app.listen(3000);})
 .catch((err) => console.log(err));
 
-app.use(session({secret: 'ssshhhhh'}));
+app.use(session({secret: 'secret'}));
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
